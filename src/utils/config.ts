@@ -14,8 +14,8 @@ const configFat = {
 };
 
 const configDev = {
-  BACKEND_BASE_URL: 'http://localhost:8315/api', // spring-boot
-  // BACKEND_BASE_URL: 'http://127.0.0.1:8200/spring-cloud-frontend/api', // spring-cloud
+  BACKEND_BASE_URL: 'http://localhost:8315', // spring-boot
+  // BACKEND_BASE_URL: 'http://127.0.0.1:8200/spring-cloud-frontend', // spring-cloud
   PORTAL_ADDRESS: 'http://127.0.0.1:8200/spring-cloud-frontend/',
 };
 
