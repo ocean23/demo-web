@@ -1,21 +1,27 @@
 /* eslint-disable no-shadow */
 // import { fetchUserPermission } from '@/api/app';
-
 const state = {
+  // hasLogin: Boolean(window.localStorage.getItem('hasLogin')),
   hasLogin: false,
   permissions: [],
   sidebarState: true,
+  loginFlag: Boolean(window.localStorage.getItem('loginFlag'))
 };
 
 const getters = {
   hasLogin: (state: any) => state.hasLogin,
   permissions: (state: any) => state.permissions,
   sidebarState: (state: any) => state.sidebarState,
+  loginFlag: (state: any) => state.loginFlag,
 };
 
 const mutations = {
   setHasLogin(state: any, data: boolean) {
     state.hasLogin = data;
+  },
+  setLoginFlag(state: any, data: boolean) {
+    state.loginFlag = data;
+    window.localStorage.setItem("loginFlag",String(data));
   },
   setPermissions(state: any, permissions: string[]) {
     state.permissions = permissions;

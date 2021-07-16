@@ -1,6 +1,6 @@
 <template>
   <div class="base-layout">
-    <el-container>
+    <el-container v-if="loginFlag">
       <el-aside width="auto"><Menu /></el-aside>
       <el-container>
         <el-header>
@@ -20,16 +20,20 @@
         </el-main>
       </el-container>
     </el-container>
+    <el-container v-if="!loginFlag" style="height:100%">
+      <Login/>
+    </el-container>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue';
+  import { defineComponent, computed,ref } from 'vue';
   import { useStore } from 'vuex';
   import Breadcrumb from './Breadcrumb.vue';
   import Header from './Header.vue';
   import Menu from './Menu';
   import MutilTab from './MutilTab.vue';
+  import Login from '../views/Login.vue';
 
   export default defineComponent({
     name: 'Layout',
@@ -38,14 +42,19 @@
       Header,
       MutilTab,
       Breadcrumb,
+      Login,
     },
     setup() {
       const store = useStore();
       const sidebarState = computed(() => store.getters['app/sidebarState']);
       const changeSidebarState = () => store.commit('app/setSidebarState', !sidebarState.value);
+      // const loginFlag = ref<boolean>(store.getters['app/loginFlag']);
+      const loginFlag = computed(() => store.getters['app/loginFlag']);
+
       return {
         sidebarState,
         changeSidebarState,
+        loginFlag,
       };
     },
   });
