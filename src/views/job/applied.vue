@@ -5,10 +5,6 @@
         <img :src="image" class="job-image" />
         <div style="padding: 14px">
           <span>{{ o.workContent }}</span>
-          <div class="bottom">
-            <!-- <time class="time">月结-观澜京东</time> -->
-            <el-button class="button like" type="success" @click="apply(o)">应聘</el-button>
-          </div>
         </div>
       </el-card>
     </el-col>
@@ -18,7 +14,7 @@
 <script lang="ts">
 import image from '@/assets/image/job.jpg';
 import { defineComponent, computed, ref, reactive, onMounted } from 'vue';
-import { likedPositionApi, applyPositionApi } from '../../api/app';
+import { appliedApi } from '../../api/app';
 import { ElMessage } from 'element-plus';
 
 export default defineComponent({
@@ -27,7 +23,7 @@ export default defineComponent({
     const jobs = ref([]);
 
     function loadData() {
-      likedPositionApi().then((res) => {
+      appliedApi().then((res) => {
         jobs.value = res.data;
       });
     }
@@ -36,20 +32,9 @@ export default defineComponent({
       loadData();
     });
 
-    function apply(row: any) {
-      applyPositionApi(row.id).then((res) => {
-        ElMessage({
-          message: '应聘申请成功',
-          duration: 3000,
-          type: 'success',
-        });
-      });
-    }
-
     return {
       image,
       jobs,
-      apply,
     };
   },
 });

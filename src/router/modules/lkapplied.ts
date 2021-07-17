@@ -1,9 +1,9 @@
 const router = {
-  path: '/likes',
-  name: 'likes',
-  component: () => import('@/views/job/likes.vue'),
+  path: '/applied',
+  name: 'applied',
+  component: () => import('@/views/job/applied.vue'),
   meta: {
-    title: '喜欢的岗位',
+    title: '应聘的岗位',
     icon: 'el-icon-menu',
     hide: false,
     permissionKey: 'menu-test',

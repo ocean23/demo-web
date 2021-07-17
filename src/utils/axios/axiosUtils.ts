@@ -4,9 +4,12 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import configEnv from '../config';
 import { AxiosCanceler } from './axiosCanceler';
+import store from '@/store/index';
 
 function getToken() {
-  return 'demo';
+  const token = store.getters['app/token'];
+  console.log('token',token);
+  return token;
 }
 
 export function redirectToPortal() {
