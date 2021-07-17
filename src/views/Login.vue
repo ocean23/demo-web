@@ -10,9 +10,6 @@
       <el-form-item label="账号" prop="account">
         <el-input v-model="loginForm.account"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
-      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
         <el-button @click="resetForm('loginForm')">重置</el-button>
@@ -24,6 +21,7 @@
 <script lang="ts">
 import { defineComponent, computed, ref, reactive, UnwrapRef } from 'vue';
 import { useStore } from 'vuex';
+import { loginApi } from '../api/app';
 
 interface FormState {
   account: string;
@@ -36,18 +34,22 @@ export default defineComponent({
     const store = useStore();
 
     const loginForm = reactive({
-      account: 'admin',
+      account: '13800000000',
       password: 'admin',
     });
 
     const loginFormRef = ref();
-    // store.commit("app/hasLogin",true)
 
     function resetForm() {}
 
     function submitForm() {
       // console.log("loginForm",loginForm);
-      store.commit('app/setLoginFlag', true);
+      // store.commit('app/setLoginFlag', true);
+      loginApi(loginForm.account).then(res=>{
+        store.commit('app/setLoginFlag', true);
+        store.commit('app/setToken', res.data.token);
+        console.log(res.data.token);
+      });
     }
 
     return {

@@ -5,7 +5,8 @@ const state = {
   hasLogin: false,
   permissions: [],
   sidebarState: true,
-  loginFlag: Boolean(window.localStorage.getItem('loginFlag'))
+  loginFlag: Boolean(window.localStorage.getItem('loginFlag')),
+  token: window.localStorage.getItem('token'),
 };
 
 const getters = {
@@ -13,15 +14,20 @@ const getters = {
   permissions: (state: any) => state.permissions,
   sidebarState: (state: any) => state.sidebarState,
   loginFlag: (state: any) => state.loginFlag,
+  token: (state: any) => state.token,
 };
 
 const mutations = {
+  setToken(state: any, data: string) {
+    state.token = data;
+    window.localStorage.setItem("token", data);
+  },
   setHasLogin(state: any, data: boolean) {
     state.hasLogin = data;
   },
   setLoginFlag(state: any, data: boolean) {
     state.loginFlag = data;
-    window.localStorage.setItem("loginFlag",String(data));
+    window.localStorage.setItem("loginFlag", String(data));
   },
   setPermissions(state: any, permissions: string[]) {
     state.permissions = permissions;
