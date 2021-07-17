@@ -9,7 +9,7 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item @click="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -17,24 +17,30 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
 
-  export default defineComponent({
-    setup() {
-      return {};
-    },
-  });
+export default defineComponent({
+  setup() {
+    const store = useStore();
+
+    function logout() {
+      store.commit('app/setLoginFlag', false);
+    }
+    return { logout };
+  },
+});
 </script>
 <style lang="less" scoped>
-  .info-container {
+.info-container {
+  display: flex;
+  justify-content: center;
+  .user-avatar {
     display: flex;
-    justify-content: center;
-    .user-avatar {
-      display: flex;
-      align-items: center;
-      .el-avatar {
-        margin-right: 8px;
-      }
+    align-items: center;
+    .el-avatar {
+      margin-right: 8px;
     }
   }
+}
 </style>

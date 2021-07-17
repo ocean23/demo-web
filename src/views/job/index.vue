@@ -24,6 +24,12 @@
               @click="unlike(o)"
               >{{ o.likeCount }}</el-button
             >
+            <el-button class="button like" v-if="!o.published" @click="markPublish(o)"
+              >上架</el-button
+            >
+            <el-button class="button like" v-if="o.published" @click="markPrivate(o)"
+              >下架</el-button
+            >
           </div>
         </div>
       </el-card>
@@ -34,24 +40,41 @@
 <script lang="ts">
 import image from '@/assets/image/job.jpg';
 import { defineComponent, computed, ref, reactive, UnwrapRef, onMounted } from 'vue';
-import { positionApi, likeApi,unLikeApi } from '../../api/app';
+import {
+  positionApi,
+  likeApi,
+  unLikeApi,
+  positionPublishApi,
+  positionPrivateApi,
+} from '../../api/app';
 
 export default defineComponent({
   name: 'Job',
   setup() {
     const jobs = ref([]);
-    function like(row:any) {
+    function like(row: any) {
       row.like = true;
       row.likeCount = row.likeCount + 1;
       likeApi(row.id).then((res) => {
-        console.log("like success")
+        console.log('like success');
       });
     }
-    function unlike(row:any) {
+    function unlike(row: any) {
       row.like = false;
       row.likeCount = row.likeCount - 1;
       unLikeApi(row.id).then((res) => {
-        console.log("unlike success")
+        console.log('unlike success');
+      });
+    }
+
+    function markPublish(row: any) {
+       positionPublishApi(row.id).then((res) => {
+         row.published = true;
+      });
+    }
+    function markPrivate(row: any) {
+      positionPrivateApi(row.id).then((res) => {
+         row.published = false;
       });
     }
 
@@ -71,6 +94,8 @@ export default defineComponent({
       image,
       like,
       unlike,
+      markPublish,
+      markPrivate,
     };
   },
 });

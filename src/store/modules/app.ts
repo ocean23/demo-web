@@ -28,6 +28,10 @@ const mutations = {
   setLoginFlag(state: any, data: boolean) {
     state.loginFlag = data;
     window.localStorage.setItem("loginFlag", String(data));
+    if(!data){
+      state.token = '';
+      window.localStorage.removeItem("token");
+    }
   },
   setPermissions(state: any, permissions: string[]) {
     state.permissions = permissions;
