@@ -1,5 +1,6 @@
 <template>
   <div class="info-container">
+   <el-button class="button" @click="logout">退出</el-button>
     <el-dropdown>
       <span class="user-avatar">
         <el-avatar
